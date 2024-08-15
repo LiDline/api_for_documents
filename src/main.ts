@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ZodValidationPipe } from 'nestjs-zod';
 
 import { AppModule } from './app.module';
+import connectDB from './bd/connectDB';
 
 async function bootstrap() {
   const port = process.env.PORT ?? 80;
@@ -29,4 +30,4 @@ async function bootstrap() {
   console.log(`Server is running on http://localhost:${port}`);
 }
 
-bootstrap();
+connectDB().then(() => bootstrap());

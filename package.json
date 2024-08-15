@@ -24,10 +24,12 @@
     "express": "^4.18.2",
     "fs-json-store": "^8.0.1",
     "luxon": "^3.4.3",
+    "mysql2": "^3.11.0",
     "nestjs-zod": "^3.0.0",
     "node-json-file-storage": "^1.1.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
+    "sequelize": "^6.37.3",
     "uuid": "^9.0.1",
     "zod": "^3.22.2"
   },
