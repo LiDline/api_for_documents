@@ -12,6 +12,7 @@ import { JWT_CONSTANTS } from 'src/CONST';
   imports: [
     UsersModule,
     PassportModule,
+
     JwtModule.register({
       secret: JWT_CONSTANTS.secret,
       signOptions: { expiresIn: JWT_CONSTANTS.expiresIn },
