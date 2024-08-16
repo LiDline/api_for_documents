@@ -13,15 +13,15 @@ export class AuthController {
   //   return res;
   // }
 
-  @Post('create-user')
-  async createAdmin(
-    @Body()
-    input: undefined, // : Promise<CreateUserResponse>
-  ) {
-    const res = await this.authService.createUser();
+  // @Post('create-user')
+  // async createAdmin(
+  //   @Body()
+  //   input: undefined, // : Promise<CreateUserResponse>
+  // ) {
+  //   const res = await this.authService.createUser();
 
-    return res;
-  }
+  //   return res;
+  // }
 
   // @Post('change-password')
   // async resetPassword(

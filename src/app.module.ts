@@ -1,32 +1,13 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { AuthModule } from './operations/auth/auth.module';
-import { TokenMiddleware } from './app.middleware';
+import { UsersModule } from './operations/users/users.module';
+import { UsersService } from './operations/users/users.service';
+import { AuthService } from './operations/auth/auth.service';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    AuthModule,
-    // PatientsModule,
-  ],
+  imports: [ConfigModule.forRoot(), AuthModule, UsersModule],
+  providers: [UsersService, AuthService],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(TokenMiddleware)
-      .exclude(
-        { path: 'auth/signin', method: RequestMethod.GET },
-        { path: 'auth/signin-device', method: RequestMethod.GET },
-        { path: 'auth/create-admin', method: RequestMethod.POST },
-      )
-      .forRoutes
-      // AnalyticsController,
-      ();
-  }
-}
+export class AppModule {}
