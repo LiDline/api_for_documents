@@ -1,11 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/bd/models/models';
+import { User, UserType } from 'src/bd/models/models';
 
 @Injectable()
 export class UsersService {
   async findOne(username: string) {
-    const res = await User.findOne({ where: { login: username } });
+    const user = await User.findOne({
+      where: { login: username },
+      include: [
+        {
+          model: UserType,
+        },
+      ],
+    });
 
-    return res;
+    return user;
   }
 }

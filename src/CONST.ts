@@ -18,3 +18,8 @@ export const JWT_CONSTANTS = {
     'DO NOT USE THIS VALUE. INSTEAD, CREATE A COMPLEX SECRET AND KEEP IT SAFE OUTSIDE OF THE SOURCE CODE.',
   expiresIn: process.env.LIVE_TIME_JWT ?? '60m',
 };
+
+export const USER_TYPE = {
+  Администратор: 'admin',
+  Пользователь: 'user',
+} as const;

@@ -29,7 +29,9 @@ export interface UserAttributes extends BaseModelAttributes {
   password: StringData;
 }
 
-export interface UserInstance extends Model<UserAttributes>, UserAttributes {}
+export interface UserInstance extends Model<UserAttributes>, UserAttributes {
+  user_type?: TypeInstance;
+}
 
 //-------------------Document-------------------
 
