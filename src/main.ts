@@ -23,7 +23,7 @@ async function bootstrap() {
   console.log('|           Api for documents          |');
   console.log(
     `|           Version: ${process.env.VERSION ?? '0.0.1'}             |`,
-  ); // Выровнял "Version"
+  );
   console.log('----------------------------------------');
   console.log('|           Author: LiDline            |');
   console.log('----------------------------------------');

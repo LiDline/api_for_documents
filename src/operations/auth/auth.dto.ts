@@ -1,5 +1,4 @@
 import { createZodDto } from 'nestjs-zod';
+import { LoginSchema } from './validation/loginSchema';
 
-// export class SignInDto extends createZodDto() {}
-
-// export class ChangePasswordDto extends createZodDto() {}
+export class LoginDto extends createZodDto(LoginSchema) {}
