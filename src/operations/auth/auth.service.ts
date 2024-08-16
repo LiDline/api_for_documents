@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { UsersService } from '../users/users.service';
-import { USER_TYPE } from 'src/CONST';
+import { JWT_CONSTANTS, USER_TYPE } from 'src/CONST';
 import { Login, UserType, ValidateUser } from './auth.interface';
 
 @Injectable()
@@ -30,10 +30,10 @@ export class AuthService {
   async login(user: Login) {
     const payload = { username: user.username };
 
-    console.log(payload);
-
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload, {
+        secret: JWT_CONSTANTS.secret,
+      }),
     };
   }
 }
