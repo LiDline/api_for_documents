@@ -3,11 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 
 import { AuthModule } from './operations/auth/auth.module';
 import { UsersModule } from './operations/users/users.module';
-import { UsersService } from './operations/users/users.service';
-import { AuthService } from './operations/auth/auth.service';
+import { HealthcheckModule } from './operations/healthchek/healthcheck.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), AuthModule, UsersModule],
-  providers: [UsersService, AuthService],
+  imports: [ConfigModule.forRoot(), AuthModule, UsersModule, HealthcheckModule],
 })
 export class AppModule {}
