@@ -1,6 +1,9 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, ModelStatic } from 'sequelize';
 
 import baseModel from './basicModel';
+import { DocumentInstance, TypeInstance, UserInstance } from '../interfaces.db';
+
+//-------------------User-------------------
 
 export const User = baseModel('users', {
   last_name: {
@@ -38,7 +41,9 @@ export const User = baseModel('users', {
     allowNull: true,
     comment: 'Пароль',
   },
-});
+}) as ModelStatic<UserInstance>;
+
+//-------------------Document-------------------
 
 export const Document = baseModel('documents', {
   user_id: {
@@ -56,7 +61,9 @@ export const Document = baseModel('documents', {
     allowNull: true,
     comment: 'Данные документов в формате JSON',
   },
-});
+}) as ModelStatic<DocumentInstance>;
+
+//-------------------Types-------------------
 
 export const DocumentType = baseModel('document_types', {
   name: {
@@ -64,7 +71,7 @@ export const DocumentType = baseModel('document_types', {
     allowNull: true,
     comment: 'Название типа документа',
   },
-});
+}) as ModelStatic<TypeInstance>;
 
 export const UserType = baseModel('user_types', {
   name: {
@@ -72,7 +79,7 @@ export const UserType = baseModel('user_types', {
     allowNull: true,
     comment: 'Наименование типа',
   },
-});
+}) as ModelStatic<TypeInstance>;
 
 export const GenderType = baseModel('gender_types', {
   name: {
@@ -80,4 +87,4 @@ export const GenderType = baseModel('gender_types', {
     allowNull: true,
     comment: 'Наименование',
   },
-});
+}) as ModelStatic<TypeInstance>;
