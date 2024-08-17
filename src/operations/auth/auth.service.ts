@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { UsersService } from '../users/users.service';
 import { JWT_CONSTANTS, USER_TYPE } from 'src/CONST';
-import { Login, UserType, ValidateUser } from './auth.interface';
+import { Login, UserType } from './auth.interface';
 
 @Injectable()
 export class AuthService {
@@ -12,28 +12,24 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(
-    username: string,
-    pass: string,
-  ): Promise<ValidateUser | null> {
-    const user = await this.usersService.findOne(username);
+  async login(user: Login) {
+    const userFromBd = await this.usersService.findOne(
+      user.username,
+      Buffer.from(user.password).toString('base64'),
+    );
 
-    if (user?.password === Buffer.from(pass).toString('base64')) {
-      const userType = user!.user_type!.name! as UserType;
+    if (userFromBd) {
+      const userType = userFromBd!.user_type!.name! as UserType;
 
-      return { username, role: USER_TYPE[userType] };
+      const payload = { username: user.username, role: USER_TYPE[userType] };
+
+      return {
+        access_token: this.jwtService.sign(payload, {
+          secret: JWT_CONSTANTS.secret,
+        }),
+      };
     }
 
-    return null;
-  }
-
-  async login(user: Login) {
-    const payload = { username: user.username };
-
-    return {
-      access_token: this.jwtService.sign(payload, {
-        secret: JWT_CONSTANTS.secret,
-      }),
-    };
+    throw new UnauthorizedException();
   }
 }
