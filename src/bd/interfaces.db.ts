@@ -4,8 +4,8 @@ import { TABLE_NAME } from 'src/CONST';
 
 export type TableNameProps = (typeof TABLE_NAME)[number];
 
-type StringData = string | null;
-type NumberData = number | null;
+export type StringData = string | null;
+export type NumberData = number | null;
 type DateData = Date | null;
 
 export interface BaseModelAttributes {

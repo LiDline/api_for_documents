@@ -1,30 +1,48 @@
-import type { UserInJSON } from 'src/operations/users/users.interface';
+import type {
+  CreateOneUser,
+  GenderNumber,
+  UserInJSON,
+} from 'src/operations/users/users.interface';
 
 import { User } from 'src/bd/models/models';
 import toBase64 from 'src/generalMethods/toBase64';
+import { GENDER } from 'src/operations/users/users.const';
 
-export default async function createOneUser(user: UserInJSON, id: number) {
-  const login = user.Credentials.username;
+export default async function createOneUser(
+  user: UserInJSON,
+  id: number,
+): Promise<CreateOneUser> {
+  let login: string | null = user.Credentials.username;
+
+  const sex = Number(user.sex) as GenderNumber;
 
   const uniqueLogin = await User.findOne({ where: { login } });
 
   if (uniqueLogin) {
-    throw new Error();
+    login = null;
   }
 
   const newUser = await User.create({
     last_name: user.lastName,
     first_name: user.firstName,
     patr_name: user.patrName,
-
-    gender_id: Number(user.sex),
+    gender_id: sex,
 
     login,
-    password: toBase64(user.Credentials.pass),
+    password: login ? toBase64(user.Credentials.pass) : null,
 
+    type_id: 2,
     create_user_id: id,
     deleted: 0,
   });
 
-  return newUser;
+  const res = {
+    lastName: user.lastName,
+    firstName: user.firstName,
+    patrName: user.patrName,
+    sex: GENDER[sex],
+    id: newUser.id!,
+  };
+
+  return res;
 }

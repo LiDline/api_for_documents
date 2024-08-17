@@ -7,7 +7,7 @@ const SenderSchema = z.object({
   }),
 });
 
-const DocumentSchema = z.object({
+export const DocumentSchema = z.object({
   id: z.string(),
   documentType_id: z.union([z.string(), z.number()]),
   documentType_Name: z.string(),
