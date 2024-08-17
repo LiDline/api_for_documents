@@ -1,3 +1,4 @@
+import { ResponseSchema } from 'src/generalValidations/utils';
 import { z } from 'zod';
 
 export const LoginSchema = z.object({
@@ -5,6 +6,6 @@ export const LoginSchema = z.object({
   password: z.string().min(3),
 });
 
-export const LoginResponseSchema = z.object({
+export const LoginResponseSchema = ResponseSchema.extend({
   access_token: z.string(),
 });

@@ -1,9 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
+import type { Login, LoginResponse, UserType } from './auth.interface';
+
 import { UsersService } from '../users/users.service';
 import { JWT_CONSTANTS, USER_TYPE } from 'src/CONST';
-import { Login, UserType } from './auth.interface';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +13,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async login(user: Login) {
+  async login(user: Login): Promise<LoginResponse> {
     const userFromBd = await this.usersService.findOne(
       user.username,
       Buffer.from(user.password).toString('base64'),
@@ -26,6 +27,7 @@ export class AuthService {
       return {
         access_token: this.jwtService.sign(payload, {
           secret: JWT_CONSTANTS.secret,
+          expiresIn: JWT_CONSTANTS.expiresIn,
         }),
       };
     }
