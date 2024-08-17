@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import type { Login, LoginResponse } from './auth.interface';
 
-import login from './func/login';
+import login from './service/login';
 
 @Injectable()
 export class AuthService {

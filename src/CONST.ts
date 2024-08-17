@@ -37,6 +37,7 @@ export const URL_OBJECT = {
     first: 'users',
     additional: {
       createUsers: 'create_user',
+      deleteUser: 'delete_user',
     },
   },
 } as const;

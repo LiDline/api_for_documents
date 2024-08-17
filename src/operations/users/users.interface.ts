@@ -6,7 +6,7 @@ import {
   DocumentSchema,
   InJSONForNewUserSchema,
   UserSchema,
-} from './validation/createUsersSchrma';
+} from './validation/createUsersSchema';
 import { StringData } from 'src/bd/interfaces.db';
 import { DOCUMENTS, GENDER } from './users.const';
 
