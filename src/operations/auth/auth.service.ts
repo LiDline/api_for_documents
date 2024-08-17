@@ -5,6 +5,7 @@ import type { Login, LoginResponse, UserType } from './auth.interface';
 
 import { UsersService } from '../users/users.service';
 import { JWT_CONSTANTS, USER_TYPE } from 'src/CONST';
+import { TokenPayload } from 'src/middleware/interfaces.middleware';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +23,10 @@ export class AuthService {
     if (userFromBd) {
       const userType = userFromBd!.user_type!.name! as UserType;
 
-      const payload = { username: user.username, role: USER_TYPE[userType] };
+      const payload: TokenPayload = {
+        username: user.username,
+        role: USER_TYPE[userType],
+      };
 
       return {
         access_token: this.jwtService.sign(payload, {
