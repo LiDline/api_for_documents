@@ -24,3 +24,19 @@ export const USER_TYPE = {
   Администратор: USERS[0],
   Пользователь: USERS[1],
 } as const;
+
+export const URL_OBJECT = {
+  healthcheck: { first: 'healthcheck' },
+  auth: {
+    first: 'auth',
+    additional: {
+      login: 'login',
+    },
+  },
+  users: {
+    first: 'users',
+    additional: {
+      createUsers: 'create_user',
+    },
+  },
+} as const;

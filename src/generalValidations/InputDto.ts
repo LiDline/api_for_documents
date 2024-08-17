@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
-import { USERS } from 'src/CONST';
+import { RoleSchema } from 'src/operations/auth/validation/loginSchema';
 
 export function InputSingleDto(values: z.ZodType) {
   return z.object({
     body: z.object({ values }),
-    role: z.enum(USERS),
+    role: RoleSchema,
   });
 }
 

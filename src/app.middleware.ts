@@ -1,4 +1,5 @@
 import {
+  ForbiddenException,
   Injectable,
   NestMiddleware,
   UnauthorizedException,
@@ -27,6 +28,17 @@ export class TokenMiddleware implements NestMiddleware {
     };
 
     req.body = modifiedQuery;
+
+    next();
+  }
+}
+
+@Injectable()
+export class AdminMiddleware implements NestMiddleware {
+  async use(req: Request, res: Response, next: NextFunction) {
+    if (req.body.role != 'admin') {
+      throw new ForbiddenException();
+    }
 
     next();
   }

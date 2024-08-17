@@ -1,9 +1,9 @@
-import { USER_TYPE } from 'src/CONST';
 import { z } from 'zod';
 
 import { LoginResponseSchema, LoginSchema } from './validation/loginSchema';
+import { USER_TYPE } from 'src/CONST';
 
-export type UserType = keyof typeof USER_TYPE;
+export type UserTypeProps = keyof typeof USER_TYPE;
 export type Role = (typeof USER_TYPE)[keyof typeof USER_TYPE];
 
 export type ValidateUser = {
