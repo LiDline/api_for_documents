@@ -63,8 +63,5 @@ export interface DataForDocumentsTable extends InitDataForDocument {
 }
 
 export interface ExtractDocumentsFromUser extends InitCreatedDocuments {
-  data: Omit<
-    DataForDocumentsTable,
-    'referralId' | 'referralDate' | 'senderName'
-  >;
+  data: DataForDocumentsTable;
 }

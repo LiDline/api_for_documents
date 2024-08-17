@@ -12,13 +12,10 @@ export default function extractDocumentsFromUser(
   const documents = user?.documents?.map((d): ExtractDocumentsFromUser => {
     const data = JSON.parse(d.data ?? '') as DataForDocumentsTable;
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { referralId, senderName, referralDate, ...otherDate } = data;
-
     return {
       id: d.id!,
       type: DOCUMENTS[d.type_id as DocumentsNumber],
-      data: otherDate,
+      data,
     };
   });
 
