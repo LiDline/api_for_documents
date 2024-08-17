@@ -37,4 +37,10 @@ export class UsersController {
 
     return res;
   }
+
+  @Get(URL_OBJECT.users.additional.getAllUsers)
+  async getAllUsers(
+    @Body()
+    input: AboutMeDto,
+  ) {}
 }

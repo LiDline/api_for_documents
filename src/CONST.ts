@@ -39,6 +39,7 @@ export const URL_OBJECT = {
       createUsers: '/create_user',
       deleteUser: '/delete_user',
       aboutMe: '/about_me',
+      getAllUsers: '/get_all_users',
     },
   },
 } as const;
