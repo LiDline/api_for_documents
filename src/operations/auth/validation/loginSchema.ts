@@ -17,5 +17,6 @@ export const LoginResponseSchema = ResponseSchema.extend({
     role: RoleSchema,
     last_name: z.string(),
     first_name: z.string(),
+    id: z.number(),
   }),
 });

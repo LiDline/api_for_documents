@@ -9,12 +9,12 @@ type NumberData = number | null;
 type DateData = Date | null;
 
 export interface BaseModelAttributes {
-  id: number;
-  create_datetime: DateData;
-  create_user_id: NumberData;
-  modify_datetime: DateData;
-  modify_user_id: NumberData;
-  deleted: NumberData;
+  id?: number;
+  create_datetime?: DateData;
+  create_user_id?: NumberData;
+  modify_datetime?: DateData;
+  modify_user_id?: NumberData;
+  deleted?: NumberData;
 }
 
 //-------------------User-------------------

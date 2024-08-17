@@ -1,18 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { User, UserType } from 'src/bd/models/models';
+
+import type { CreateUsersRequest } from './users.interface';
+
+import createUsers from './service/createUsers';
 
 @Injectable()
 export class UsersService {
-  async findOne(username: string, password: string) {
-    const user = await User.findOne({
-      where: { login: username, password },
-      include: [
-        {
-          model: UserType,
-        },
-      ],
-    });
-
-    return user;
+  async createUsers(input: CreateUsersRequest, id: number) {
+    return await createUsers(input, id);
   }
 }

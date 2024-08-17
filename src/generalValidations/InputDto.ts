@@ -4,8 +4,9 @@ import { RoleSchema } from 'src/operations/auth/validation/loginSchema';
 
 export function InputSingleDto(values: z.ZodType) {
   return z.object({
-    body: z.object({ values }),
+    body: values,
     role: RoleSchema,
+    id: z.number(),
   });
 }
 

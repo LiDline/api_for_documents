@@ -25,6 +25,7 @@ export class TokenMiddleware implements NestMiddleware {
     const modifiedQuery = {
       body,
       role: tokenPayload.role,
+      id: tokenPayload.id,
     };
 
     req.body = modifiedQuery;

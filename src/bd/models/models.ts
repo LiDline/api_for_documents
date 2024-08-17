@@ -33,6 +33,7 @@ export const User = baseModel('users', {
   },
   login: {
     type: DataTypes.STRING,
+    unique: true,
     allowNull: true,
     comment: 'Логин',
   },
