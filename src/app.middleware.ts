@@ -16,7 +16,7 @@ export class TokenMiddleware implements NestMiddleware {
 
     const tokenPayload = parseJWTPayload(req.headers.authorization);
 
-    if (Date.now() >= (tokenPayload.exp as number) * 1000) {
+    if (!tokenPayload) {
       throw new UnauthorizedException();
     }
 
