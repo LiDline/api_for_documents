@@ -32,6 +32,7 @@ export interface UserAttributes extends BaseModelAttributes {
 export interface UserInstance extends Model<UserAttributes>, UserAttributes {
   user_type?: TypeInstance;
   gender_type?: TypeInstance;
+  documents?: DocumentInstance[];
 }
 
 //-------------------Document-------------------

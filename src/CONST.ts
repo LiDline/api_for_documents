@@ -26,18 +26,19 @@ export const USER_TYPE = {
 } as const;
 
 export const URL_OBJECT = {
-  healthcheck: { first: 'healthcheck' },
+  healthcheck: { first: '/healthcheck' },
   auth: {
-    first: 'auth',
+    first: '/auth',
     additional: {
-      login: 'login',
+      login: '/login',
     },
   },
   users: {
-    first: 'users',
+    first: '/users',
     additional: {
-      createUsers: 'create_user',
-      deleteUser: 'delete_user',
+      createUsers: '/create_user',
+      deleteUser: '/delete_user',
+      aboutMe: '/about_me',
     },
   },
 } as const;

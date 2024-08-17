@@ -1,6 +1,10 @@
 import { z } from 'zod';
 
-import { LoginResponseSchema, LoginSchema } from './validation/loginSchema';
+import {
+  CreateSimpleDataForUserSchema,
+  LoginResponseSchema,
+  LoginSchema,
+} from './validation/loginSchema';
 import { USER_TYPE } from 'src/CONST';
 
 export type UserTypeProps = keyof typeof USER_TYPE;
@@ -14,3 +18,7 @@ export type ValidateUser = {
 export type Login = z.infer<typeof LoginSchema>;
 
 export type LoginResponse = z.infer<typeof LoginResponseSchema>;
+
+export type CreateSimpleDataForUser = z.infer<
+  typeof CreateSimpleDataForUserSchema
+>;

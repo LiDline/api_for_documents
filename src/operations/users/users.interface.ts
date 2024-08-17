@@ -7,7 +7,7 @@ import {
   InJSONForNewUserSchema,
   UserSchema,
 } from './validation/createUsersSchema';
-import { StringData } from 'src/bd/interfaces.db';
+import { NumberData, StringData } from 'src/bd/interfaces.db';
 import { DOCUMENTS, GENDER } from './users.const';
 
 export type UserInJSON = z.infer<typeof UserSchema>;
@@ -39,13 +39,32 @@ export type InitDataForDocument = {
 
 export type Document = z.infer<typeof DocumentSchema>;
 
-export interface CreatedDocuments {
+interface InitCreatedDocuments {
   id: number;
   type: DocumentsType;
+}
+
+export interface CreatedDocuments extends InitCreatedDocuments {
   data: string;
 }
 
 export interface CreateNewUsers {
   user: CreateOneUser;
   documents: CreatedDocuments[];
+}
+
+export interface DataForDocumentsTable extends InitDataForDocument {
+  name: StringData;
+  series: StringData | NumberData;
+  number: StringData;
+  beginDate: StringData;
+  endDate: StringData;
+  issuedName: StringData;
+}
+
+export interface ExtractDocumentsFromUser extends InitCreatedDocuments {
+  data: Omit<
+    DataForDocumentsTable,
+    'referralId' | 'referralDate' | 'senderName'
+  >;
 }

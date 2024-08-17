@@ -10,13 +10,16 @@ export const LoginSchema = z.object({
 
 export const RoleSchema = z.enum(USERS);
 
+export const CreateSimpleDataForUserSchema = z.object({
+  gender: z.string(),
+  role: RoleSchema,
+  lastName: z.string(),
+  firstName: z.string(),
+  patrName: z.string(),
+  id: z.number(),
+});
+
 export const LoginResponseSchema = ResponseSchema.extend({
   access_token: z.string(),
-  user: z.object({
-    gender: z.string(),
-    role: RoleSchema,
-    last_name: z.string(),
-    first_name: z.string(),
-    id: z.number(),
-  }),
+  user: CreateSimpleDataForUserSchema,
 });

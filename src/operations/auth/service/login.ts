@@ -3,26 +3,17 @@ import * as jwt from 'jsonwebtoken';
 
 import type { Login, LoginResponse, UserTypeProps } from '../auth.interface';
 
-import { GenderType, User, UserType } from 'src/bd/models/models';
 import { TokenPayload } from 'src/middleware/interfaces.middleware';
 import { JWT_CONSTANTS, USER_TYPE } from 'src/CONST';
 import toBase64 from 'src/generalMethods/toBase64';
+import findOneUserByParams from 'src/generalMethods/findOneUserByParams';
+import extractNameFromUser from 'src/generalMethods/extractNameFromUser';
 
 export default async function login(user: Login): Promise<LoginResponse> {
-  const userFromBd = await User.findOne({
-    where: {
-      login: user.username,
-      password: toBase64(user.password),
-      deleted: 0,
-    },
-    include: [
-      {
-        model: UserType,
-      },
-      {
-        model: GenderType,
-      },
-    ],
+  const userFromBd = await findOneUserByParams({
+    login: user.username,
+    password: toBase64(user.password),
+    deleted: 0,
   });
 
   if (userFromBd) {
@@ -34,19 +25,15 @@ export default async function login(user: Login): Promise<LoginResponse> {
       id: userFromBd.id!,
     };
 
-    const res = jwt.sign(payload, JWT_CONSTANTS.secret, {
+    const token = jwt.sign(payload, JWT_CONSTANTS.secret, {
       expiresIn: JWT_CONSTANTS.expiresIn,
     });
 
+    const dataUser = extractNameFromUser(userFromBd);
+
     return {
-      user: {
-        role: USER_TYPE[userType],
-        id: userFromBd.id!,
-        last_name: userFromBd.last_name ?? '',
-        first_name: userFromBd.first_name ?? '',
-        gender: userFromBd.gender_type?.name ?? '',
-      },
-      access_token: res,
+      user: dataUser,
+      access_token: token,
     };
   }
 
