@@ -28,10 +28,16 @@ export class AppModule implements NestModule {
 
     consumer
       .apply(AdminMiddleware)
-      .exclude({
-        path: URL_OBJECT.users.first + URL_OBJECT.users.additional.aboutMe,
-        method: RequestMethod.GET,
-      })
+      .exclude(
+        {
+          path: URL_OBJECT.users.first + URL_OBJECT.users.additional.aboutMe,
+          method: RequestMethod.GET,
+        },
+        {
+          path: URL_OBJECT.users.first + URL_OBJECT.users.additional.updateUser,
+          method: RequestMethod.POST,
+        },
+      )
       .forRoutes(UsersController);
   }
 }

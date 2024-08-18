@@ -14,6 +14,7 @@ import {
   GetAllUsersRequestSchema,
 } from './validation/aboutMeSchema';
 import { CreateSimpleDataForUser } from '../auth/auth.interface';
+import { UpdateUserRequestSchema } from './validation/updateUserSchema';
 
 export type UserInJSON = z.infer<typeof UserSchema>;
 
@@ -79,3 +80,5 @@ export interface AboutMe {
 export type GetAllUsersRequest = z.infer<typeof GetAllUsersRequestSchema>;
 
 export type FindUserByNameRequest = z.infer<typeof FindUserByNameRequestSchema>;
+
+export type UpdateUserRequest = z.infer<typeof UpdateUserRequestSchema>;

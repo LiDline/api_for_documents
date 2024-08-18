@@ -10,7 +10,7 @@ import {
 
 import { UsersService } from './users.service';
 import { CUSTOM_ERRORS, URL_OBJECT } from 'src/CONST';
-import { AboutMeDto, CreateUsersDto } from './users.dto';
+import { AboutMeDto, CreateUsersDto, UpdateUserDto } from './users.dto';
 import errorResponse from 'src/generalMethods/errorResponse';
 import { IdSchema } from 'src/generalValidations/utils';
 import {
@@ -94,5 +94,13 @@ export class UsersController {
     const res = await this.usersService.findUserByName(params);
 
     return res;
+  }
+
+  @Post(URL_OBJECT.users.additional.updateUser)
+  async updateUser(
+    @Body()
+    input: UpdateUserDto,
+  ): Promise<void> {
+    await this.usersService.updateUser(input.body, input.id);
   }
 }

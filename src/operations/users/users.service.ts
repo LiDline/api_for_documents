@@ -4,6 +4,7 @@ import type {
   CreateUsersRequest,
   FindUserByNameRequest,
   GetAllUsersRequest,
+  UpdateUserRequest,
 } from './users.interface';
 
 import createUsers from './service/createUsers';
@@ -11,6 +12,7 @@ import { User } from 'src/bd/models/models';
 import aboutMe from './service/aboutMe';
 import getAllUsers from './service/getAllUsers';
 import findUserByName from './service/findUserByName';
+import updateUser from './service/updateUser';
 
 @Injectable()
 export class UsersService {
@@ -32,5 +34,9 @@ export class UsersService {
 
   async findUserByName(params: FindUserByNameRequest) {
     return await findUserByName(params);
+  }
+
+  async updateUser(change: UpdateUserRequest, authorId: number) {
+    return await updateUser(change, authorId);
   }
 }

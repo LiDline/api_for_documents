@@ -13,7 +13,7 @@
 
 ## Описание
 
-Проект построен на  <a href="https://nestjs.com/" target="_blank">Nest.js</a> framework.
+Проект построен на <a href="https://nestjs.com/" target="_blank">Nest.js</a> framework.
 
 ## Запуск
 
@@ -25,5 +25,5 @@ pnpm install --frozen-lockfile
 ### dev
 
 ```bash
-$ pnpm run dev
+pnpm run dev
 ```
