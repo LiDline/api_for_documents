@@ -37,6 +37,7 @@ export class UsersController {
     await this.usersService.deleteUser(Number(id));
   }
 
+  // Исключая удалённые документы
   @Get(URL_OBJECT.users.additional.aboutMe)
   async aboutMe(
     @Body()

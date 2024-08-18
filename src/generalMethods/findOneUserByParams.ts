@@ -29,6 +29,8 @@ export default async function findOneUserByParams(
           ...include,
           {
             model: Document,
+            where: { deleted: 0 },
+            required: false,
           },
         ]
       : include,
