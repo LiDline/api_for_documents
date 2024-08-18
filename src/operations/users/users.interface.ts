@@ -9,6 +9,8 @@ import {
 } from './validation/createUsersSchema';
 import { NumberData, StringData } from 'src/bd/interfaces.db';
 import { DOCUMENTS, GENDER } from './users.const';
+import { GetAllUsersRequestSchema } from './validation/aboutMeSchema';
+import { CreateSimpleDataForUser } from '../auth/auth.interface';
 
 export type UserInJSON = z.infer<typeof UserSchema>;
 
@@ -65,3 +67,10 @@ export interface DataForDocumentsTable extends InitDataForDocument {
 export interface ExtractDocumentsFromUser extends InitCreatedDocuments {
   data: DataForDocumentsTable;
 }
+
+export interface AboutMe {
+  user: CreateSimpleDataForUser;
+  documents: ExtractDocumentsFromUser[] | undefined;
+}
+
+export type GetAllUsersRequest = z.infer<typeof GetAllUsersRequestSchema>;

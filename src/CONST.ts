@@ -20,6 +20,8 @@ export const JWT_CONSTANTS = {
 };
 export const USERS = ['admin', 'user'] as const;
 
+export const USER_TYPE_NUMBER = { admin: 1, user: 2 } as const;
+
 export const USER_TYPE = {
   Администратор: USERS[0],
   Пользователь: USERS[1],

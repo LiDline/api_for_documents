@@ -6,3 +6,8 @@ export const AboutMeSchema = z.object({
   role: RoleSchema,
   id: z.number(),
 });
+
+export const GetAllUsersRequestSchema = z.object({
+  limit: z.number(),
+  offset: z.number(),
+});
