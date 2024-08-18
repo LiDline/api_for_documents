@@ -8,7 +8,6 @@ export default async function updateDocument(
 ) {
   const updatedDocument = await Document.update(
     {
-      user_id: change.userId,
       type_id: Number(change.typeId),
       data: JSON.stringify(change.data),
 

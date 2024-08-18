@@ -36,7 +36,6 @@ export default async function createDocuments(
         create_user_id: authorId,
         create_datetime: new Date(),
       });
-      console.log(data);
 
       return {
         id: newDocument.id!,

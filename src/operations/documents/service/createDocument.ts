@@ -22,8 +22,10 @@ export default async function createDocument(
     issuedName: input.data.issuedName,
   } as DataForDocumentsTableResponse;
 
+  console.log(input.userId);
+
   const newDocument = await Document.create({
-    user_id: input.userId,
+    user_id: Number(input.userId),
     type_id: Number(input.typeId),
     data: JSON.stringify(data),
 
