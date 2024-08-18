@@ -35,15 +35,24 @@ export const URL_OBJECT = {
       login: '/login',
     },
   },
+
   users: {
     first: '/users',
     additional: {
-      createUsers: '/create_user',
+      createUsers: '/create_users',
       deleteUser: '/delete_user',
       aboutMe: '/about_me',
       getAllUsers: '/get_all_users',
       findUserByName: '/find_user_by_name',
       updateUser: '/update_user',
+    },
+  },
+
+  documents: {
+    first: '/documents',
+    additional: {
+      deleteDocument: '/delete_document',
+      updateDocument: '/update_document',
     },
   },
 } as const;

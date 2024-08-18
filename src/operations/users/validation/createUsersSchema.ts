@@ -1,3 +1,4 @@
+import { NumberNullable, StringNullable } from 'src/generalValidations/utils';
 import { z } from 'zod';
 
 const SenderSchema = z.object({
@@ -14,29 +15,29 @@ export const DocumentSchema = z.object({
   series: z.union([z.string(), z.number()]),
   number: z.string(),
   beginDate: z.string(),
-  endDate: z.string().nullable(),
+  endDate: StringNullable,
   orgDep_Name: z.string(),
   lpu_id: z.string(),
 
-  name: z.string().nullable().optional(),
-  formType_id: z.string().nullable().optional(),
-  smo_id: z.string().nullable().optional(),
-  type: z.string().nullable().optional(),
-  documentDeputy_begDate: z.string().nullable().optional(),
-  documentDeputy_Issue: z.string().nullable().optional(),
-  documentDeputy_Ser: z.string().nullable().optional(),
-  documentDeputy_Num: z.string().nullable().optional(),
-  sprTerr_id: z.string().nullable().optional(),
+  name: StringNullable.optional(),
+  formType_id: StringNullable.optional(),
+  smo_id: StringNullable.optional(),
+  type: StringNullable.optional(),
+  documentDeputy_begDate: StringNullable.optional(),
+  documentDeputy_Issue: StringNullable.optional(),
+  documentDeputy_Ser: StringNullable.optional(),
+  documentDeputy_Num: StringNullable.optional(),
+  sprTerr_id: StringNullable.optional(),
   isTwoNation: z.boolean().nullable().optional(),
-  personEvn_begDT: z.string().nullable().optional(),
-  orgDep_id: z.string().nullable().optional(),
+  personEvn_begDT: StringNullable.optional(),
+  orgDep_id: StringNullable.optional(),
 });
 
 const AddressSchema = z.object({
   id: z.string(),
   value: z.string(),
-  org_id: z.string().nullable(),
-  post_id: z.string().nullable(),
+  org_id: StringNullable,
+  post_id: StringNullable,
   guid: z.string(),
 });
 
@@ -49,28 +50,28 @@ export const UserSchema = z.object({
   id: z.number(),
   lastName: z.string(),
   firstName: z.string(),
-  patrName: z.string().nullable(),
+  patrName: StringNullable,
   birthDate: z.string(),
   sex: z.union([z.string(), z.number()]),
   phoneNumber: z.string(),
-  snils: z.string().nullable(),
-  inn: z.string().nullable(),
-  socStatus_id: z.string().nullable(),
-  socStatusFed_Code: z.string().nullable(),
-  pid: z.string().nullable(),
-  parPersonSurName_SurName: z.string().nullable(),
-  parPersonFirName_FirName: z.string().nullable(),
-  parPersonSecName_SecName: z.string().nullable(),
-  deputyKind_id: z.string().nullable(),
-  deputyOrg_id: z.string().nullable(),
-  documentAuthority_id: z.string().nullable(),
-  employment_id: z.string().nullable(),
-  familyStatus_id: z.string().nullable(),
+  snils: StringNullable,
+  inn: StringNullable,
+  socStatus_id: StringNullable,
+  socStatusFed_Code: StringNullable,
+  pid: StringNullable,
+  parPersonSurName_SurName: StringNullable,
+  parPersonFirName_FirName: StringNullable,
+  parPersonSecName_SecName: StringNullable,
+  deputyKind_id: StringNullable,
+  deputyOrg_id: StringNullable,
+  documentAuthority_id: StringNullable,
+  employment_id: StringNullable,
+  familyStatus_id: StringNullable,
   personFamilyStatus_IsMarried: z.boolean().nullable(),
-  legalStatusVZN_id: z.string().nullable(),
-  legalStatusVZN_Name: z.string().nullable(),
-  legalStatusVZN_pid: z.string().nullable(),
-  legalStatusVZN_pName: z.string().nullable(),
+  legalStatusVZN_id: StringNullable,
+  legalStatusVZN_Name: StringNullable,
+  legalStatusVZN_pid: StringNullable,
+  legalStatusVZN_pName: StringNullable,
   Credentials: CredentialsSchema,
   Address: AddressSchema.nullable(),
   Documents: z.array(DocumentSchema),
@@ -89,3 +90,17 @@ export const InJSONForNewUserSchema = z.object({
 });
 
 export const CreateUsersRequestSchema = z.array(InJSONForNewUserSchema).min(1);
+
+//--------------------------------------------------------------------------------
+
+export const DataForDocumentsTableResponseSchema = z.object({
+  referralId: z.string(),
+  referralDate: z.string(),
+  senderName: z.string(),
+  name: StringNullable,
+  series: NumberNullable.or(StringNullable),
+  number: StringNullable,
+  beginDate: StringNullable,
+  endDate: StringNullable,
+  issuedName: StringNullable,
+});

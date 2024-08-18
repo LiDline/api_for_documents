@@ -1,6 +1,6 @@
 import type {
   CreatedDocuments,
-  DataForDocumentsTable,
+  DataForDocumentsTableResponse,
   DocumentsNumber,
   InitDataForDocument,
   UserInJSON,
@@ -27,7 +27,7 @@ export default async function createDocuments(
         beginDate: d.beginDate,
         endDate: d.endDate,
         issuedName: d.orgDep_Name,
-      } as DataForDocumentsTable);
+      } as DataForDocumentsTableResponse);
 
       const newDocument = await Document.create({
         user_id: newUserId,

@@ -1,5 +1,5 @@
 import type {
-  CreateOneUser,
+  ResponseOneUser,
   GenderNumber,
   UserInJSON,
 } from 'src/operations/users/users.interface';
@@ -11,7 +11,7 @@ import { GENDER } from 'src/operations/users/users.const';
 export default async function createOneUser(
   user: UserInJSON,
   id: number,
-): Promise<CreateOneUser> {
+): Promise<ResponseOneUser> {
   let login: string | null = user.Credentials.username;
 
   const sex = Number(user.sex) as GenderNumber;

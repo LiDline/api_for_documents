@@ -2,8 +2,10 @@ import { createZodDto } from 'nestjs-zod';
 
 import { InputSingleDto } from 'src/generalValidations/InputDto';
 import { CreateUsersRequestSchema } from './validation/createUsersSchema';
-import { GetAllUsersRequestSchema } from './validation/aboutMeSchema';
-import { UpdateUserRequestSchema } from './validation/updateUserSchema';
+import {
+  GetAllUsersRequestSchema,
+  ResponseOneUserSchema,
+} from './validation/aboutMeSchema';
 
 export class CreateUsersDto extends createZodDto(
   InputSingleDto(CreateUsersRequestSchema),
@@ -14,5 +16,5 @@ export class GetAllUsersDto extends createZodDto(
 ) {}
 
 export class UpdateUserDto extends createZodDto(
-  InputSingleDto(UpdateUserRequestSchema),
+  InputSingleDto(ResponseOneUserSchema),
 ) {}

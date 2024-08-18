@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { RoleSchema } from 'src/operations/auth/validation/loginSchema';
 import { createZodDto } from 'nestjs-zod';
-import { MiddlewareSchema } from './utils';
+import { MiddlewareSchema } from 'src/operations/users/validation/aboutMeSchema';
 
 export function InputSingleDto(values: z.ZodType) {
   return z.object({
@@ -13,10 +13,3 @@ export function InputSingleDto(values: z.ZodType) {
 }
 
 export class MiddlewareDto extends createZodDto(MiddlewareSchema) {}
-
-// export function InputDoubleDto(values: z.ZodType, additionalValues: z.ZodType) {
-//   return z.object({
-//     body: z.object({ values, additionalValues }),
-//     authorization: z.string().min(1),
-//   });
-// }

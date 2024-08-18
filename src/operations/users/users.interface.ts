@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import {
   CreateUsersRequestSchema,
+  DataForDocumentsTableResponseSchema,
   DataInJSONForNewUserSchema,
   DocumentSchema,
   InJSONForNewUserSchema,
@@ -12,9 +13,9 @@ import { DOCUMENTS, GENDER } from './users.const';
 import {
   FindUserByNameRequestSchema,
   GetAllUsersRequestSchema,
+  ResponseOneUserSchema,
 } from './validation/aboutMeSchema';
 import { CreateSimpleDataForUser } from '../auth/auth.interface';
-import { UpdateUserRequestSchema } from './validation/updateUserSchema';
 
 export type UserInJSON = z.infer<typeof UserSchema>;
 
@@ -24,13 +25,7 @@ export type JSONForNewUserSchema = z.infer<typeof InJSONForNewUserSchema>;
 
 export type CreateUsersRequest = z.infer<typeof CreateUsersRequestSchema>;
 
-export interface CreateOneUser {
-  lastName: StringData;
-  firstName: StringData;
-  patrName: StringData;
-  sex: string;
-  id: number;
-}
+export type ResponseOneUser = z.infer<typeof ResponseOneUserSchema>;
 
 export type GenderNumber = keyof typeof GENDER;
 
@@ -55,21 +50,16 @@ export interface CreatedDocuments extends InitCreatedDocuments {
 }
 
 export interface CreateNewUsers {
-  user: CreateOneUser;
+  user: ResponseOneUser;
   documents: CreatedDocuments[];
 }
 
-export interface DataForDocumentsTable extends InitDataForDocument {
-  name: StringData;
-  series: StringData | NumberData;
-  number: StringData;
-  beginDate: StringData;
-  endDate: StringData;
-  issuedName: StringData;
-}
+export type DataForDocumentsTableResponse = z.infer<
+  typeof DataForDocumentsTableResponseSchema
+>;
 
 export interface ExtractDocumentsFromUser extends InitCreatedDocuments {
-  data: DataForDocumentsTable;
+  data: DataForDocumentsTableResponse;
 }
 
 export interface AboutMe {
@@ -81,4 +71,4 @@ export type GetAllUsersRequest = z.infer<typeof GetAllUsersRequestSchema>;
 
 export type FindUserByNameRequest = z.infer<typeof FindUserByNameRequestSchema>;
 
-export type UpdateUserRequest = z.infer<typeof UpdateUserRequestSchema>;
+export type UpdateUserRequest = z.infer<typeof ResponseOneUserSchema>;
