@@ -18,7 +18,7 @@
 ## Запуск
 
 ```bash
-cp .env.example .env # Вставьте Url своей БД!
+cp env.example .env # Вставьте Url своей БД в FULL_URL_MYSQL!
 pnpm install --frozen-lockfile
 ```
 
@@ -71,3 +71,85 @@ docker run --env-file .env -p 5000:5000 apifordocuments:latest
     └─ CONST.ts
         └─ Общие константы
 ```
+
+## Описание endpoint's
+
+### Ошибки
+
+Ошибка авторизации. Нет токена или закончился срок:
+
+```text
+{
+    "message": "Unauthorized",
+    "statusCode": 401
+}
+```
+
+Ошибка сервера:
+
+```text
+{
+    "message": "Internal server error",
+    "statusCode": 500
+}
+```
+
+Ошибка валидации. Проблема с параметрами/телом запроса. Подробное описание неверных частей (включая массивы):
+
+```text
+{
+    "statusCode": 400,
+    "message": "Validation failed",
+    "errors": [
+        {
+            "code": "invalid_type",
+            "expected": "string",
+            "received": "undefined",
+            "path": [
+                "username"
+            ],
+            "message": "Required"
+        }
+    ]
+}
+```
+
+### Endoint's:
+
+```text
+─ GET /healthcheck
+```
+
+export const URL_OBJECT = {
+
+─ src
+
+healthcheck: { first: '/healthcheck' },
+auth: {
+first: '/auth',
+additional: {
+login: '/login',
+},
+},
+
+users: {
+first: '/users',
+additional: {
+createUsers: '/create_users',
+deleteUser: '/delete_user',
+aboutMe: '/about_me',
+getAllUsers: '/get_all_users',
+findUserByName: '/find_user_by_name',
+updateUser: '/update_user',
+},
+},
+
+documents: {
+first: '/documents',
+additional: {
+deleteDocument: '/delete_document',
+updateDocument: '/update_document',
+createDocument: '/create_document',
+},
+},
+} as const;
