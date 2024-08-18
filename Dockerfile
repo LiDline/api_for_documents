@@ -1,10 +1,10 @@
 # Этап 1: Сборка проекта
 FROM node:18 as build
-ENV TZ=Europe/Moscow
 WORKDIR /app
 COPY . ./
 
-RUN npm install -g pnpm
+RUN npm install -g pnpm@9.3.0
+
 RUN pnpm install --frozen-lockfile
 
 RUN pnpm run build
@@ -15,6 +15,6 @@ WORKDIR /app
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 
-EXPOSE 80 
+EXPOSE 5000 
 
-CMD [ "node", "dist/main.js" ]
+CMD [ "node", "dist/src/main.js" ]

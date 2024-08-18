@@ -16,7 +16,7 @@ export const JWT_CONSTANTS = {
   secret:
     process.env.SECRET ??
     'DO NOT USE THIS VALUE. INSTEAD, CREATE A COMPLEX SECRET AND KEEP IT SAFE OUTSIDE OF THE SOURCE CODE.',
-  expiresIn: process.env.LIVE_TIME_JWT ?? '60m',
+  expiresIn: process.env.LIVE_TIME_JWT ?? 3_600_000,
 };
 export const USERS = ['admin', 'user'] as const;
 

@@ -18,7 +18,7 @@
 ## Запуск
 
 ```bash
-cp .env.example .env
+cp .env.example .env # Вставьте Url своей БД!
 pnpm install --frozen-lockfile
 ```
 
@@ -26,4 +26,18 @@ pnpm install --frozen-lockfile
 
 ```bash
 pnpm run dev
+```
+
+## prod
+
+```bash
+pnpm build
+pnpm start
+```
+
+or
+
+```bash
+docker build --pull --rm -f "Dockerfile" -t apifordocuments:latest "."
+docker run --env-file .env -p 5000:5000 apifordocuments:latest
 ```
