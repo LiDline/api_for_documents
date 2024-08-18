@@ -41,3 +41,33 @@ or
 docker build --pull --rm -f "Dockerfile" -t apifordocuments:latest "."
 docker run --env-file .env -p 5000:5000 apifordocuments:latest
 ```
+
+## Дерево проекта
+
+```text
+─ src
+    ├─ bd
+    |   └─ Модели Sequelize, подключение
+    |
+    ├─ generalMethods
+    |   └─ Общие методы endpoints
+    |
+    ├─ middleware
+    |   └─ Работа с токеном перед передачей в endpoint
+    |
+    ├─ operators
+    |   └─ [endpoint]
+    |        ├─ service
+    |        |   └─ Методы обработки данных
+    |        ├─ validation
+    |        |   └─ Zod-семы для валидации request
+    |        ├─ [endpoint].controller.ts
+    |        |   └─ Контроллер endpoint, его URL
+    |        ├─ [endpoint].const.ts
+    |        |   └─ Константы для endpoint
+    |        └─ [endpoint].dto.ts
+    |            └─ DTO, использующее Zod-схемы для валидации на endoint
+    |
+    └─ CONST.ts
+        └─ Общие константы
+```
