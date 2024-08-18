@@ -32,6 +32,8 @@ export default async function createOneUser(
     password: login ? toBase64(user.Credentials.pass) : null,
 
     type_id: 2,
+
+    create_datetime: new Date(),
     create_user_id: id,
     deleted: 0,
   });

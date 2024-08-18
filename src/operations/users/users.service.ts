@@ -20,8 +20,11 @@ export class UsersService {
     return await createUsers(input, id);
   }
 
-  async deleteUser(id: number) {
-    return await User.update({ deleted: 1 }, { where: { id } });
+  async deleteUser(id: number, authorId: number) {
+    return await User.update(
+      { deleted: 1, modify_datetime: new Date(), modify_user_id: authorId },
+      { where: { id } },
+    );
   }
 
   async aboutMe(id: number) {

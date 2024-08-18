@@ -10,7 +10,7 @@ import {
 
 import { UsersService } from './users.service';
 import { CUSTOM_ERRORS, URL_OBJECT } from 'src/CONST';
-import { AboutMeDto, CreateUsersDto, UpdateUserDto } from './users.dto';
+import { CreateUsersDto, UpdateUserDto } from './users.dto';
 import errorResponse from 'src/generalMethods/errorResponse';
 import { IdSchema } from 'src/generalValidations/utils';
 import {
@@ -23,6 +23,7 @@ import {
   FindUserByNameRequestSchema,
   GetAllUsersRequestSchema,
 } from './validation/aboutMeSchema';
+import { MiddlewareDto } from 'src/generalValidations/InputDto';
 
 @Controller(URL_OBJECT.users.first)
 export class UsersController {
@@ -39,17 +40,21 @@ export class UsersController {
   }
 
   @Delete(URL_OBJECT.users.additional.deleteUser + '/:id')
-  async deleteUser(@Param('id') id: string): Promise<void> {
+  async deleteUser(
+    @Param('id') id: string,
+    @Body()
+    input: MiddlewareDto,
+  ): Promise<void> {
     errorResponse(Number(id), IdSchema, CUSTOM_ERRORS.wrongId);
 
-    await this.usersService.deleteUser(Number(id));
+    await this.usersService.deleteUser(Number(id), input.id);
   }
 
   // Исключая удалённые документы
   @Get(URL_OBJECT.users.additional.aboutMe)
   async aboutMe(
     @Body()
-    input: AboutMeDto,
+    input: MiddlewareDto,
   ): Promise<AboutMe> {
     const res = await this.usersService.aboutMe(input.id);
 

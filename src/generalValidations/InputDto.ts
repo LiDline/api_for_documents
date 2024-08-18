@@ -1,6 +1,8 @@
 import { z } from 'zod';
 
 import { RoleSchema } from 'src/operations/auth/validation/loginSchema';
+import { createZodDto } from 'nestjs-zod';
+import { MiddlewareSchema } from './utils';
 
 export function InputSingleDto(values: z.ZodType) {
   return z.object({
@@ -9,6 +11,8 @@ export function InputSingleDto(values: z.ZodType) {
     id: z.number(),
   });
 }
+
+export class MiddlewareDto extends createZodDto(MiddlewareSchema) {}
 
 // export function InputDoubleDto(values: z.ZodType, additionalValues: z.ZodType) {
 //   return z.object({

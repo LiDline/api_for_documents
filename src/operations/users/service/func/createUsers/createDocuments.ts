@@ -35,6 +35,7 @@ export default async function createDocuments(
         data,
 
         create_user_id: authorId,
+        create_datetime: new Date(),
       });
 
       return {
