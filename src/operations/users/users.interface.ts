@@ -8,7 +8,6 @@ import {
   InJSONForNewUserSchema,
   UserSchema,
 } from './validation/createUsersSchema';
-import { NumberData, StringData } from 'src/bd/interfaces.db';
 import { DOCUMENTS, GENDER } from './users.const';
 import {
   FindUserByNameRequestSchema,
@@ -30,7 +29,6 @@ export type ResponseOneUser = z.infer<typeof ResponseOneUserSchema>;
 export type GenderNumber = keyof typeof GENDER;
 
 export type DocumentsNumber = keyof typeof DOCUMENTS;
-type DocumentsType = (typeof DOCUMENTS)[keyof typeof DOCUMENTS];
 
 export type InitDataForDocument = {
   referralId: string;
@@ -42,21 +40,22 @@ export type Document = z.infer<typeof DocumentSchema>;
 
 interface InitCreatedDocuments {
   id: number;
-  type: DocumentsType;
-}
-
-export interface CreatedDocuments extends InitCreatedDocuments {
-  data: string;
-}
-
-export interface CreateNewUsers {
-  user: ResponseOneUser;
-  documents: CreatedDocuments[];
+  type: number;
 }
 
 export type DataForDocumentsTableResponse = z.infer<
   typeof DataForDocumentsTableResponseSchema
 >;
+
+export interface CreatedDocument extends InitCreatedDocuments {
+  data: DataForDocumentsTableResponse;
+  userId: number;
+}
+
+export interface CreateNewUsers {
+  user: ResponseOneUser;
+  documents: CreatedDocument[];
+}
 
 export interface ExtractDocumentsFromUser extends InitCreatedDocuments {
   data: DataForDocumentsTableResponse;

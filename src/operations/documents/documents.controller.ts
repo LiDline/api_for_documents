@@ -5,7 +5,8 @@ import { DocumentsService } from './documents.service';
 import errorResponse from 'src/generalMethods/errorResponse';
 import { IdSchema } from 'src/generalValidations/utils';
 import { MiddlewareDto } from 'src/generalValidations/InputDto';
-import { UpdateDocumentDto } from './documents.dto';
+import { DocumentDto } from './documents.dto';
+import { CreatedDocument } from '../users/users.interface';
 
 @Controller(URL_OBJECT.documents.first)
 export class DocumentsController {
@@ -23,10 +24,20 @@ export class DocumentsController {
   }
 
   @Post(URL_OBJECT.documents.additional.updateDocument)
-  async updateUser(
+  async updateDocument(
     @Body()
-    input: UpdateDocumentDto,
+    input: DocumentDto,
   ): Promise<void> {
     await this.usersService.updateDocument(input.body, input.id);
+  }
+
+  @Post(URL_OBJECT.documents.additional.createDocument)
+  async createDocument(
+    @Body()
+    input: DocumentDto,
+  ): Promise<CreatedDocument> {
+    const res = await this.usersService.createDocument(input.body, input.id);
+
+    return res;
   }
 }

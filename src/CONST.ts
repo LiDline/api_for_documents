@@ -53,6 +53,7 @@ export const URL_OBJECT = {
     additional: {
       deleteDocument: '/delete_document',
       updateDocument: '/update_document',
+      createDocument: '/create_document',
     },
   },
 } as const;

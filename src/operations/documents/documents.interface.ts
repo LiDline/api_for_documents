@@ -1,5 +1,5 @@
 import { z } from 'zod';
 
-import { UpdateDocumentRequestSchema } from './validation/updateDocumentRequestSchema';
+import { DocumentRequestSchema } from './validation/updateDocumentRequestSchema';
 
-export type UpdateDocument = z.infer<typeof UpdateDocumentRequestSchema>;
+export type UpdateDocument = z.infer<typeof DocumentRequestSchema>;

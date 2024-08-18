@@ -1,8 +1,8 @@
 import { createZodDto } from 'nestjs-zod';
 
 import { InputSingleDto } from 'src/generalValidations/InputDto';
-import { UpdateDocumentRequestSchema } from './validation/updateDocumentRequestSchema';
+import { DocumentRequestSchema } from './validation/updateDocumentRequestSchema';
 
-export class UpdateDocumentDto extends createZodDto(
-  InputSingleDto(UpdateDocumentRequestSchema),
+export class DocumentDto extends createZodDto(
+  InputSingleDto(DocumentRequestSchema),
 ) {}

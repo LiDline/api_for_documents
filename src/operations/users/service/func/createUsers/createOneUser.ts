@@ -6,7 +6,6 @@ import type {
 
 import { User } from 'src/bd/models/models';
 import toBase64 from 'src/generalMethods/toBase64';
-import { GENDER } from 'src/operations/users/users.const';
 
 export default async function createOneUser(
   user: UserInJSON,
@@ -42,7 +41,7 @@ export default async function createOneUser(
     lastName: user.lastName,
     firstName: user.firstName,
     patrName: user.patrName,
-    sex: GENDER[sex],
+    sex,
     id: newUser.id!,
   };
 

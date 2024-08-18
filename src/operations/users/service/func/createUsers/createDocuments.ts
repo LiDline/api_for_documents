@@ -1,5 +1,5 @@
 import type {
-  CreatedDocuments,
+  CreatedDocument,
   DataForDocumentsTableResponse,
   DocumentsNumber,
   InitDataForDocument,
@@ -7,19 +7,18 @@ import type {
 } from 'src/operations/users/users.interface';
 
 import { Document } from 'src/bd/models/models';
-import { DOCUMENTS } from 'src/operations/users/users.const';
 
 export default async function createDocuments(
   user: UserInJSON,
   initDataForDocument: InitDataForDocument,
   newUserId: number,
   authorId: number,
-): Promise<CreatedDocuments[]> {
+): Promise<CreatedDocument[]> {
   const createdDocuments = await Promise.all(
-    user.Documents.map(async (d): Promise<CreatedDocuments> => {
+    user.Documents.map(async (d): Promise<CreatedDocument> => {
       const typeId = Number(d.documentType_id) as DocumentsNumber;
 
-      const data = JSON.stringify({
+      const data = {
         ...initDataForDocument,
         name: d.documentType_Name,
         series: d.series,
@@ -27,20 +26,22 @@ export default async function createDocuments(
         beginDate: d.beginDate,
         endDate: d.endDate,
         issuedName: d.orgDep_Name,
-      } as DataForDocumentsTableResponse);
+      } as DataForDocumentsTableResponse;
 
       const newDocument = await Document.create({
         user_id: newUserId,
         type_id: typeId,
-        data,
+        data: JSON.stringify(data),
 
         create_user_id: authorId,
         create_datetime: new Date(),
       });
+      console.log(data);
 
       return {
         id: newDocument.id!,
-        type: DOCUMENTS[typeId],
+        type: typeId,
+        userId: newUserId,
         data,
       };
     }),

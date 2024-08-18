@@ -1,8 +1,7 @@
-import { UserInstance } from 'src/bd/interfaces.db';
-import { DOCUMENTS } from 'src/operations/users/users.const';
+import type { UserInstance } from 'src/bd/interfaces.db';
+
 import {
   DataForDocumentsTableResponse,
-  DocumentsNumber,
   ExtractDocumentsFromUser,
 } from 'src/operations/users/users.interface';
 
@@ -14,7 +13,7 @@ export default function extractDocumentsFromUser(
 
     return {
       id: d.id!,
-      type: DOCUMENTS[d.type_id as DocumentsNumber],
+      type: Number(d.type_id),
       data,
     };
   });
