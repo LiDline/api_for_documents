@@ -1,4 +1,4 @@
-# api_for_documents
+# Общая информация
 
 ## Задание:
 
@@ -72,11 +72,255 @@ docker run --env-file .env -p 5000:5000 apifordocuments:latest
         └─ Общие константы
 ```
 
-## Описание endpoint's
+# Конечные точки
 
-### Ошибки
+1. [Эндпоинты](#Эндпоинты)
 
-Ошибка авторизации. Нет токена или закончился срок:
+   - [Healthcheck](#healthcheck)
+   - [Auth](#auth)
+     - [POST /auth/login](#authlogin)
+   - [Users](#users)
+     - [POST /users/create_users](#userscreate_users)
+     - [GET /users/get_all_users](#usersget_all_users)
+     - [GET /users/find_user_by_name](#usersfind_user_by_name)
+     - [DELETE /users/delete_user/:id](#usersdelete_userid)
+     - [GET /users/about_me](#usersabout_me)
+     - [POST /users/update_user](#usersupdate_user)
+   - [Documents](#documents)
+     - [DELETE /documents/delete_document/:id](#documentsdelete_documentid)
+     - [POST /documents/update_document](#documentsupdate_document)
+     - [POST /documents/create_document](#documentscreate_document)
+
+2. [Примеры ответов](#Примеры-ответов)
+   - [CreatedDocument](#createddocument)
+   - [User](#user)
+   - [Document](#document)
+   - [Ошибка авторизации](#auth_error)
+   - [Ошибка сервера](#server_error)
+   - [Ошибка валидации](#validation_error)
+
+## Эндпоинты:
+
+### /healthcheck
+
+Пример **GET** запроса:
+
+```text
+curl --location 'http://localhost:5000/healthcheck'
+```
+
+Пример ответа:
+
+```text
+ok
+```
+
+### /auth
+
+#### /auth/login
+
+Пример **POST** запроса:
+
+```text
+curl --location 'http://localhost:5000/auth/login' \
+--header 'Content-Type: application/json' \
+--data '{
+    "username": "admin",
+    "password": "Admin"
+}'
+```
+
+Пример ответа:
+
+```text
+{
+    "user": {
+        "role": "admin",
+        "id": 1,
+        "lastName": "Админ",
+        "firstName": "",
+        "patrName": "",
+        "gender": "Мужской"
+    },
+    "access_token": "token"
+}
+```
+
+### /users
+
+#### /users/create_users
+
+Пример **POST** запроса:
+
+```text
+curl --location 'http://localhost:5000/users/create_users' \
+--header 'Content-Type: application/json' \
+--header 'authorization: токен из /auth/login' \
+--data '---Пример из example.json---'
+```
+
+Пример ответа:
+
+```text
+[
+    {
+        "status": "fulfilled" # Либо "rejected" - если ошибка,
+        "value": CreatedDocument
+    }
+]
+```
+
+#### /users/get_all_users
+
+Пример **GET** запроса:
+
+```text
+curl --location 'http://localhost:5000/users/get_all_users/?offset=0&limit=5' \
+--header 'authorization: токен из /auth/login'
+```
+
+Пример ответа:
+
+```text
+[CreatedDocument]
+```
+
+#### /users/find_user_by_name
+
+Пример **GET** запроса:
+
+```text
+curl --location 'http://localhost:5000/users/find_user_by_name/?offset=0&limit=5&name=---любая часть ФИО---' \
+--header 'authorization: токен из /auth/login'
+```
+
+Пример ответа:
+
+```text
+[CreatedDocument]
+```
+
+#### /users/delete_user/:id
+
+Пример **DELETE** запроса:
+
+```text
+curl --location --request DELETE 'http://localhost:5000/users/delete_user/16' \
+--header 'authorization: токен из /auth/login'
+```
+
+Пример ответа: только status 200
+
+#### /users/about_me
+
+Пример **GET** запроса:
+
+```text
+curl --location 'http://localhost:5000/users/about_me' \
+--header 'authorization: токен из /auth/login'
+```
+
+Пример ответа:
+
+```text
+CreatedDocument
+```
+
+#### /users/update_user
+
+Пример **POST** запроса:
+
+```text
+curl --location 'http://localhost:5000/users/update_user' \
+--header 'Content-Type: application/json' \
+--header 'authorization: токен из /auth/login' \
+--data 'User'
+```
+
+Пример ответа: только status 200
+
+### /documents
+
+#### /documents/delete_document/:id
+
+Пример **DELETE** запроса:
+
+```text
+curl --location --request DELETE 'http://localhost:5000/documents/delete_document/16' \
+--header 'authorization: токен из /auth/login'
+```
+
+Пример ответа: только status 200
+
+#### documents/update_document
+
+Пример **POST** запроса:
+
+```text
+curl --location 'http://localhost:5000/documents/update_document' \
+--header 'Content-Type: application/json' \
+--header 'authorization: токен из /auth/login' \
+--data 'Document'
+```
+
+Пример ответа: только status 200
+
+#### /documents/create_document
+
+Пример **POST** запроса:
+
+```text
+curl --location 'http://localhost:5000/documents/create_document' \
+--header 'Content-Type: application/json' \
+--header 'authorization: токен из /auth/login' \
+--data 'Document'
+```
+
+## Примеры ответов
+
+#### CreatedDocument:
+
+```text
+{
+    "user": User,
+    "documents": [Document, ...]
+}
+```
+
+#### User:
+
+```text
+{
+    "lastName": string,
+    "firstName": string,
+    "patrName": string | null,
+    "sex": number,
+    "id": number
+}
+```
+
+#### Document:
+
+```text
+{
+    "id": number,
+    "type": number,
+    "userId": number,
+    "data": {
+        "referralId": string,
+        "referralDate": string,
+        "senderName": string,
+        "name": string | null,
+        "series": string | number | null,
+        "number": string | null,
+        "beginDate": string | null,
+        "endDate": string | null,
+        "issuedName": string | null
+    }
+}
+```
+
+#### Auth_error:
 
 ```text
 {
@@ -85,7 +329,7 @@ docker run --env-file .env -p 5000:5000 apifordocuments:latest
 }
 ```
 
-Ошибка сервера:
+#### Server_error:
 
 ```text
 {
@@ -94,7 +338,7 @@ docker run --env-file .env -p 5000:5000 apifordocuments:latest
 }
 ```
 
-Ошибка валидации. Проблема с параметрами/телом запроса. Подробное описание неверных частей (включая массивы):
+#### Validation_error. Проблема с параметрами/телом запроса. Подробное описание неверных частей (включая массивы):
 
 ```text
 {
@@ -113,43 +357,3 @@ docker run --env-file .env -p 5000:5000 apifordocuments:latest
     ]
 }
 ```
-
-### Endoint's:
-
-```text
-─ GET /healthcheck
-```
-
-export const URL_OBJECT = {
-
-─ src
-
-healthcheck: { first: '/healthcheck' },
-auth: {
-first: '/auth',
-additional: {
-login: '/login',
-},
-},
-
-users: {
-first: '/users',
-additional: {
-createUsers: '/create_users',
-deleteUser: '/delete_user',
-aboutMe: '/about_me',
-getAllUsers: '/get_all_users',
-findUserByName: '/find_user_by_name',
-updateUser: '/update_user',
-},
-},
-
-documents: {
-first: '/documents',
-additional: {
-deleteDocument: '/delete_document',
-updateDocument: '/update_document',
-createDocument: '/create_document',
-},
-},
-} as const;

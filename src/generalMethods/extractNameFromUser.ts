@@ -16,6 +16,6 @@ export default function extractNameFromUser(
     lastName: userFromBd.last_name ?? '',
     firstName: userFromBd.first_name ?? '',
     patrName: userFromBd.patr_name ?? '',
-    gender: userFromBd.gender_type?.name ?? '',
+    sex: userFromBd.gender_id!,
   };
 }

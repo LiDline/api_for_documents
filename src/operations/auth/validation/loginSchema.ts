@@ -11,7 +11,7 @@ export const LoginSchema = z.object({
 export const RoleSchema = z.enum(USERS);
 
 export const CreateSimpleDataForUserSchema = z.object({
-  gender: z.string(),
+  sex: z.number(),
   role: RoleSchema,
   lastName: z.string(),
   firstName: z.string(),

@@ -57,13 +57,9 @@ export interface CreateNewUsers {
   documents: CreatedDocument[];
 }
 
-export interface ExtractDocumentsFromUser extends InitCreatedDocuments {
-  data: DataForDocumentsTableResponse;
-}
-
 export interface AboutMe {
   user: CreateSimpleDataForUser;
-  documents: ExtractDocumentsFromUser[] | undefined;
+  documents: CreatedDocument[] | undefined;
 }
 
 export type GetAllUsersRequest = z.infer<typeof GetAllUsersRequestSchema>;
