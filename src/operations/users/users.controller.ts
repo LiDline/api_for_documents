@@ -9,12 +9,20 @@ import {
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
-import { URL_OBJECT } from 'src/CONST';
+import { CUSTOM_ERRORS, URL_OBJECT } from 'src/CONST';
 import { AboutMeDto, CreateUsersDto } from './users.dto';
 import errorResponse from 'src/generalMethods/errorResponse';
 import { IdSchema } from 'src/generalValidations/utils';
-import { AboutMe, CreateNewUsers, GetAllUsersRequest } from './users.interface';
-import { GetAllUsersRequestSchema } from './validation/aboutMeSchema';
+import {
+  AboutMe,
+  CreateNewUsers,
+  FindUserByNameRequest,
+  GetAllUsersRequest,
+} from './users.interface';
+import {
+  FindUserByNameRequestSchema,
+  GetAllUsersRequestSchema,
+} from './validation/aboutMeSchema';
 
 @Controller(URL_OBJECT.users.first)
 export class UsersController {
@@ -32,7 +40,7 @@ export class UsersController {
 
   @Delete(URL_OBJECT.users.additional.deleteUser + '/:id')
   async deleteUser(@Param('id') id: string): Promise<void> {
-    errorResponse(Number(id), IdSchema, 'Wrong id');
+    errorResponse(Number(id), IdSchema, CUSTOM_ERRORS.wrongId);
 
     await this.usersService.deleteUser(Number(id));
   }
@@ -59,10 +67,31 @@ export class UsersController {
         limit: Number(limit),
       },
       GetAllUsersRequestSchema,
-      'Wrong params',
+      CUSTOM_ERRORS.wrongParams,
     );
 
     const res = await this.usersService.getAllUsers(params);
+
+    return res;
+  }
+
+  @Get(URL_OBJECT.users.additional.findUserByName)
+  async findUser(
+    @Query('name') name: string,
+    @Query('offset') offset: string,
+    @Query('limit') limit: string,
+  ): Promise<AboutMe[]> {
+    const params: FindUserByNameRequest = errorResponse(
+      {
+        offset: Number(offset),
+        limit: Number(limit),
+        name,
+      },
+      FindUserByNameRequestSchema,
+      CUSTOM_ERRORS.wrongParams,
+    );
+
+    const res = await this.usersService.findUserByName(params);
 
     return res;
   }

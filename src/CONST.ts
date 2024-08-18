@@ -42,6 +42,12 @@ export const URL_OBJECT = {
       deleteUser: '/delete_user',
       aboutMe: '/about_me',
       getAllUsers: '/get_all_users',
+      findUserByName: '/find_user_by_name',
     },
   },
 } as const;
+
+export const CUSTOM_ERRORS = {
+  wrongId: 'Wrong id',
+  wrongParams: 'Wrong params',
+};

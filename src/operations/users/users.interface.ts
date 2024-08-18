@@ -9,7 +9,10 @@ import {
 } from './validation/createUsersSchema';
 import { NumberData, StringData } from 'src/bd/interfaces.db';
 import { DOCUMENTS, GENDER } from './users.const';
-import { GetAllUsersRequestSchema } from './validation/aboutMeSchema';
+import {
+  FindUserByNameRequestSchema,
+  GetAllUsersRequestSchema,
+} from './validation/aboutMeSchema';
 import { CreateSimpleDataForUser } from '../auth/auth.interface';
 
 export type UserInJSON = z.infer<typeof UserSchema>;
@@ -74,3 +77,5 @@ export interface AboutMe {
 }
 
 export type GetAllUsersRequest = z.infer<typeof GetAllUsersRequestSchema>;
+
+export type FindUserByNameRequest = z.infer<typeof FindUserByNameRequestSchema>;

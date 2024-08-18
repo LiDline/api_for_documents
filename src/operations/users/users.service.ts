@@ -1,11 +1,16 @@
 import { Injectable } from '@nestjs/common';
 
-import type { CreateUsersRequest, GetAllUsersRequest } from './users.interface';
+import type {
+  CreateUsersRequest,
+  FindUserByNameRequest,
+  GetAllUsersRequest,
+} from './users.interface';
 
 import createUsers from './service/createUsers';
 import { User } from 'src/bd/models/models';
 import aboutMe from './service/aboutMe';
 import getAllUsers from './service/getAllUsers';
+import findUserByName from './service/findUserByName';
 
 @Injectable()
 export class UsersService {
@@ -23,5 +28,9 @@ export class UsersService {
 
   async getAllUsers(params: GetAllUsersRequest) {
     return await getAllUsers(params);
+  }
+
+  async findUserByName(params: FindUserByNameRequest) {
+    return await findUserByName(params);
   }
 }

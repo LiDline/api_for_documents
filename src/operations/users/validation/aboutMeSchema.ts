@@ -11,3 +11,7 @@ export const GetAllUsersRequestSchema = z.object({
   limit: z.number(),
   offset: z.number(),
 });
+
+export const FindUserByNameRequestSchema = GetAllUsersRequestSchema.extend({
+  name: z.string().min(3),
+});
