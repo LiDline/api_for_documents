@@ -17,18 +17,21 @@
 
 ## Запуск
 
-```bash
-cp env.example .env # Вставьте Url своей БД в FULL_URL_MYSQL!
-```
+### Первый шаг
 
-### dev
+```bash
+cp env.example .env
+```
+### Второй шаг
+
+#### dev
 
 ```bash
 pnpm install --frozen-lockfile
 pnpm run dev
 ```
 
-## prod
+#### prod
 
 ```bash
 pnpm install --frozen-lockfile
