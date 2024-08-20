@@ -17,18 +17,21 @@
 
 ## Запуск
 
+### Первый шаг
+
 ```bash
 cp env.example .env
 ```
+### Второй шаг
 
-### dev
+#### dev
 
 ```bash
 pnpm install --frozen-lockfile
 pnpm run dev
 ```
 
-## prod
+#### prod
 
 ```bash
 pnpm install --frozen-lockfile
