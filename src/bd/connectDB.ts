@@ -5,13 +5,25 @@ import './models/associations';
 import './models/models';
 
 export default async function connectDB() {
-  try {
-    await sequelize.authenticate();
+  let retries = 5;
 
-    await sequelize.sync();
+  await new Promise((res) => setTimeout(res, 5000));
 
-    console.log(`Successful connect to the database: ${URL_MYSQL}`);
-  } catch (error) {
-    console.error`Unable to connect to the database: ${error}`;
+  while (retries) {
+    try {
+      await sequelize.authenticate();
+
+      await sequelize.sync();
+
+      console.log(`Successful connect to the database: ${URL_MYSQL}`);
+
+      break;
+    } catch (error) {
+      console.error`Unable to connect to the database: ${error}`;
+
+      retries -= 1;
+      console.log(`Retries left: ${retries}`);
+      await new Promise((res) => setTimeout(res, 5000));
+    }
   }
 }
