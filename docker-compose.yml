@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - '5001:5001'
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '5000:5000'
+    depends_on:
+      - db
+    environment:
+      PORT: ${PORT}
+      VERSION: ${VERSION}
+      FULL_URL_MYSQL: ${FULL_URL_MYSQL}
+      SECRET: ${SECRET}
+      LIVE_TIME_JWT: ${LIVE_TIME_JWT}

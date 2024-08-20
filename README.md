@@ -19,18 +19,19 @@
 
 ```bash
 cp env.example .env # Вставьте Url своей БД в FULL_URL_MYSQL!
-pnpm install --frozen-lockfile
 ```
 
 ### dev
 
 ```bash
+pnpm install --frozen-lockfile
 pnpm run dev
 ```
 
 ## prod
 
 ```bash
+pnpm install --frozen-lockfile
 pnpm build
 pnpm start
 ```
@@ -38,8 +39,7 @@ pnpm start
 or
 
 ```bash
-docker build --pull --rm -f "Dockerfile" -t apifordocuments:latest "."
-docker run --env-file .env -p 5000:5000 apifordocuments:latest
+docker compose up --build # python3.10 и выше
 ```
 
 ## Дерево проекта
@@ -66,7 +66,7 @@ docker run --env-file .env -p 5000:5000 apifordocuments:latest
     |        ├─ [endpoint].const.ts
     |        |   └─ Константы для endpoint
     |        └─ [endpoint].dto.ts
-    |            └─ DTO, использующее Zod-схемы для валидации на endoint
+    |            └─ DTO, использующее Zod-схемы для валидации на endpoint
     |
     └─ CONST.ts
         └─ Общие константы
@@ -80,10 +80,10 @@ docker run --env-file .env -p 5000:5000 apifordocuments:latest
    - [Auth](#auth)
      - [POST /auth/login](#authlogin)
    - [Users](#users)
-     - [POST /users/create_users](#userscreate_users)
-     - [GET /users/get_all_users](#usersget_all_users)
-     - [GET /users/find_user_by_name](#usersfind_user_by_name)
-     - [DELETE /users/delete_user/:id](#usersdelete_userid)
+     - [POST /users/create_users](#userscreate_users) (Admin)
+     - [GET /users/get_all_users](#usersget_all_users) (Admin)
+     - [GET /users/find_user_by_name](#usersfind_user_by_name) (Admin)
+     - [DELETE /users/delete_user/:id](#usersdelete_userid) (Admin)
      - [GET /users/about_me](#usersabout_me)
      - [POST /users/update_user](#usersupdate_user)
    - [Documents](#documents)
