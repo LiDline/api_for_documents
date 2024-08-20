@@ -1,7 +1,28 @@
 version: '3.8'
 
 services:
+  app:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '5000:5000'
+    depends_on:
+      - db
+    networks:
+      - document_platform
+    environment:
+      PORT: ${PORT}
+      VERSION: ${VERSION}
+      FULL_URL_MYSQL: ${FULL_URL_MYSQL}
+      SECRET: ${SECRET}
+      LIVE_TIME_JWT: ${LIVE_TIME_JWT}
+
   db:
+    container_name: databse
+    networks:
+      - document_platform
     build:
       context: .
       dockerfile: Dockerfile.db
@@ -11,19 +32,7 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: root_password
     ports:
-      - '5001:5001'
+      - '3306:3306'
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - '5000:5000'
-    depends_on:
-      - db
-    environment:
-      PORT: ${PORT}
-      VERSION: ${VERSION}
-      FULL_URL_MYSQL: ${FULL_URL_MYSQL}
-      SECRET: ${SECRET}
-      LIVE_TIME_JWT: ${LIVE_TIME_JWT}
+networks:
+  document_platform:
