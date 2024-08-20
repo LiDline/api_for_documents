@@ -18,7 +18,7 @@
 ## Запуск
 
 ```bash
-cp env.example .env # Вставьте Url своей БД в FULL_URL_MYSQL!
+cp env.example .env
 ```
 
 ### dev
